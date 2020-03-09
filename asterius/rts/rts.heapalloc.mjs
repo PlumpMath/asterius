@@ -54,11 +54,11 @@ export class HeapAlloc {
   /**
    * Sets the current generation number, so that new closures and 
    * MBlocks are allocated in the right space and with correct flag.
-   * @param gen_no The generation number
-   * @param forceNewAlloc {bool} Force the allocation
+   * @param {number} gen_no The generation number
+   * @param {boolean} [forceNewAlloc=true] Force the allocation
    *   of a new MBlock. 
    */
-  setGenerationNo(gen_no, forceNewAlloc=false) {
+  setGenerationNo(gen_no, forceNewAlloc=true) {
     let pool = this.generations[gen_no];
     if (forceNewAlloc || !pool) {
       pool = this.allocMegaGroup(1, false, gen_no);
@@ -239,8 +239,6 @@ export class HeapAlloc {
       if (!this.mgroups.has(this.generations[i])) {
         this.generations[i] = undefined;
       }
-    // set current generation back to 0
-    this.setGenerationNo(0);
   }
 
   /**
