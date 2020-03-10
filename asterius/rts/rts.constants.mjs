@@ -105,3 +105,4 @@ export const offset_stat_dev = 0x0;
 export const offset_stat_ino = 0x8;
 export const clock_monotonic = 0x1;
 export const clock_realtime = 0x0;
+export const MUT_ARR_PTRS_CARD_BITS = 0x7;

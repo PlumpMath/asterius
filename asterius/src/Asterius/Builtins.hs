@@ -524,6 +524,12 @@ rtsFunctionImports debug =
              functionType = FunctionType {paramTypes = [], returnTypes = []}
            },
          FunctionImport
+           { internalName = "__asterius_recordMutableCap",
+             externalModuleName = "GC",
+             externalBaseName = "recordMutableCap",
+             functionType = FunctionType {paramTypes = [F64, F64], returnTypes = []}
+           },
+         FunctionImport
            { internalName = "__asterius_raiseExceptionHelper",
              externalModuleName = "ExceptionHelper",
              externalBaseName = "raiseExceptionHelper",
@@ -1454,12 +1460,14 @@ recordClosureMutatedFunction _ = runEDSL "recordClosureMutated" $ do
   mempty
 
 recordMutable :: Expression -> EDSL ()
-recordMutable _ =
-  pure () -- STUB
+recordMutable p =
+  callImport "__asterius_recordMutableCap"
+    [convertUInt64ToFloat64 p, constF64 1000]
 
 recordMutableCap :: Expression -> Expression -> EDSL ()
-recordMutableCap _ _ =
-  pure () -- STUB
+recordMutableCap p gen =
+  callImport "__asterius_recordMutableCap"
+    [convertUInt64ToFloat64 p, convertUInt64ToFloat64 gen]
 
 recordMutableCapFunction :: BuiltinsOptions -> AsteriusModule
 recordMutableCapFunction _ = runEDSL "recordMutableCap" $ do

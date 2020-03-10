@@ -69,7 +69,7 @@ rtsUsedSymbols =
       "stg_WHITEHOLE_info",
       "stg_IND_info",
       "stg_MVAR_CLEAN_info",
-      "stg_MUT_ARR_CLEAN_info",
+      "stg_MUT_ARR_PTRS_CLEAN_info",
       "stg_MUT_ARR_PTRS_FROZEN_CLEAN_info",
       "stg_MUT_VAR_CLEAN_info",
       "stg_SMALL_MUT_ARR_PTRS_CLEAN_info",
