@@ -1056,11 +1056,8 @@ export class GC {
     const
       mut_list = this.mut_list,
       mut_list_old = mut_list.slice();
-    // Free mut_list
+    // Empty the mut_list
     mut_list.length = 0;
-    // In case of a major collection, the mut_list can be
-    // ignored because the whole memory will be scanned
-    if (this.major) return;
     // First of all, set known mutable objects as non-moved,
     // so to avoid scavenging them twice
     for (const c of mut_list_old) {
@@ -1230,7 +1227,13 @@ export class GC {
     this.heapAlloc.setGenerationNo(1, this.major);
 
     // Scavenge mut_list first
-    this.scavenge_mutable_list();
+    if (this.major) {
+      // In case of a major collection, the mut_list can be
+      // ignored because the whole memory will be scanned anyway
+      this.mut_list.length = 0;
+    } else {
+      this.scavenge_mutable_list();
+    }
 
     // Evacuate TSOs
     for (const [_, tso_info] of this.scheduler.tsos) {

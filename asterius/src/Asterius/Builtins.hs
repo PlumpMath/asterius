@@ -1430,7 +1430,6 @@ threadPausedFunction _ = runEDSL "threadPaused" $ do
 
 -- | Write barrier for generational GC
 
-dirtyMutVarFunction :: BuiltinsOptions -> AsteriusModule
 dirtyMutVarFunction _ = runEDSL "dirty_MUT_VAR" $ do
   [_, p] <- params [I64, I64]
   if'
@@ -1474,7 +1473,6 @@ recordMutableCapFunction _ = runEDSL "recordMutableCap" $ do
   [cap, p] <- params [I64, I64]
   recordMutableCap cap p
 
-tryWakeupThreadFunction :: BuiltinsOptions -> AsteriusModule
 tryWakeupThreadFunction _ = runEDSL "tryWakeupThread" $ do
   [_cap, tso] <- params [I64, I64]
   callImport "__asterius_enqueueTSO" [convertUInt64ToFloat64 tso]
