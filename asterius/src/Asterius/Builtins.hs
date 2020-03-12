@@ -1461,7 +1461,7 @@ recordClosureMutatedFunction _ = runEDSL "recordClosureMutated" $ do
 recordMutable :: Expression -> EDSL ()
 recordMutable p =
   callImport "__asterius_recordMutableCap"
-    [convertUInt64ToFloat64 p, constF64 -1]
+    [convertUInt64ToFloat64 p, constF64 (-1)]
 
 recordMutableCap :: Expression -> Expression -> EDSL ()
 recordMutableCap p gen =
