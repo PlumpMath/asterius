@@ -118,21 +118,14 @@ export class GC {
   /**
    * Stores the given closure in the remembered set.
    * @param c The mutated closure
+   * @param gen The generation to which the closure belongs
+   *   (if the generation provided is -1, it will be read
+   *    from the block descriptor)
    */
-  recordMutableCap(c, gen=1000) {
-    // sanity check (TODO: remove)
-    if (this.mut_list.indexOf(c) != -1) {
-      const info = Number(this.memory.i64Load(c));
-      const type = this.memory.i32Load(
-          info + rtsConstants.offset_StgInfoTable_type
-        );
-      throw new WebAssembly.RuntimeError(`duplicate in mut_list! ${type}`);
-    }
+  recordMutableCap(c, gen=-1) {
     if (this.memory.heapAlloced(c)) {
-      if (gen == 1000) gen = this.gen_no(c);
-      if (this.isPinned(c) || gen > 0) {
-        this.mut_list.push(c);
-      }
+      if (gen < 0) gen = this.gen_no(c);
+      if (gen > 0) this.mut_list.push(c);
     } else {
       this.mut_list.push(c);
     }
