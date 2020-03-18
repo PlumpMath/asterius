@@ -1,9 +1,6 @@
 steps:
   - label: "Build it and test it"
     command: |
-      docker info
-      docker ps -as
-      docker images
       docker pull debian:sid
       docker run \
         -it \
