@@ -10,7 +10,7 @@ export PATH=/root/.local/bin:$PATH
 
 echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200224T000000Z sid main contrib non-free' > /etc/apt/sources.list
 
-time apt update
+apt update
 apt full-upgrade -y
 apt install -y \
   automake \
@@ -30,6 +30,7 @@ apt install -y \
   openssh-client \
   python3-pip \
   sudo \
+  time \
   xz-utils \
   zlib1g-dev
 curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
