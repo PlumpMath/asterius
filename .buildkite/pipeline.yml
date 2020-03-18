@@ -1,6 +1,6 @@
 steps:
   - label: "Probe"
-  - command: |
+    command: |
       printenv
       echo $(getconf _NPROCESSORS_ONLN 2>/dev/null)
       lscpu || true
