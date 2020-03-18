@@ -1,11 +1,15 @@
 steps:
-  - label: "Build dev image"
+  - label: "Build it and test it"
     command: |
+      docker info
+      docker ps -as
+      docker images
+      docker pull debian:sid
       docker run \
         -it \
         --rm \
         --network host \
         -v $(pwd):/workspaces/asterius \
         -w /workspaces/asterius \
-        terrorjack/asterius:dev \
-        .devcontainer/build.sh
+        debian:sid \
+        .buildkite/build.sh
