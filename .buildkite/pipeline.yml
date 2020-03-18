@@ -15,4 +15,5 @@ steps:
         --network host \
         -v $(pwd):/workspaces/asterius \
         -w /workspaces/asterius \
+        asterius:dev \
         .devcontainer/build.sh
