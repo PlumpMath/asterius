@@ -37,8 +37,6 @@ echo "deb https://deb.nodesource.com/node_13.x sid main" > /etc/apt/sources.list
 apt update
 apt install -y nodejs
 
-cd /workspaces/asterius
-
 mkdir -p ~/.local/bin
 curl -L https://github.com/commercialhaskell/stack/releases/download/v2.1.3/stack-2.1.3-linux-x86_64.tar.gz | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 curl -L https://downloads.haskell.org/~cabal/cabal-install-3.0.0.0/cabal-install-3.0.0.0-x86_64-unknown-linux.tar.xz | tar xJ -C ~/.local/bin 'cabal'
@@ -46,7 +44,6 @@ mkdir ~/.stack
 echo "allow-different-user: true" > ~/.stack/config.yaml
 
 stack -j8 --no-terminal build --test --no-run-tests
-. .envrc
-ahc-boot
+stack --no-terminal exec ahc-boot
 
-stack test asterius:fib
+stack --no-terminal test asterius:ghc-testsuite --test-arguments="-j8 --timeout=180s" || true
