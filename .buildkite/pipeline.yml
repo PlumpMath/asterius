@@ -1,8 +1,18 @@
 steps:
-  - label: "Probe"
+  - label: "Build dev image"
     command: |
-      printenv
-      echo $(getconf _NPROCESSORS_ONLN 2>/dev/null)
-      lscpu || true
-      lsmem || true
-      docker info || true
+      docker build \
+        --compress \
+        --file dev.Dockerfile \
+        --network host \
+        --no-cache \
+        --pull \
+        --tag asterius:dev \
+        .
+      docker run \
+        -it \
+        --rm \
+        --network host \
+        -v $(pwd):/workspaces/asterius \
+        -w /workspaces/asterius \
+        .devcontainer/build.sh
