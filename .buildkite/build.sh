@@ -10,7 +10,7 @@ export PATH=/root/.local/bin:$PATH
 
 echo 'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20200224T000000Z sid main contrib non-free' > /etc/apt/sources.list
 
-apt update
+time apt update
 apt full-upgrade -y
 apt install -y \
   automake \
@@ -46,4 +46,4 @@ echo "allow-different-user: true" > ~/.stack/config.yaml
 stack -j8 --no-terminal build --test --no-run-tests
 stack --no-terminal exec ahc-boot
 
-stack --no-terminal test asterius:ghc-testsuite --test-arguments="-j8 --timeout=180s" || true
+time stack --no-terminal test asterius:ghc-testsuite --test-arguments="-j8 --timeout=180s" || true
