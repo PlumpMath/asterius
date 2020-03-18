@@ -1,19 +1,11 @@
 steps:
   - label: "Build dev image"
     command: |
-      docker build \
-        --compress \
-        --file dev.Dockerfile \
-        --network host \
-        --no-cache \
-        --pull \
-        --tag asterius:dev \
-        .
       docker run \
         -it \
         --rm \
         --network host \
         -v $(pwd):/workspaces/asterius \
         -w /workspaces/asterius \
-        asterius:dev \
+        terrorjack/asterius:dev \
         .devcontainer/build.sh
