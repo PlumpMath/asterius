@@ -1,0 +1,8 @@
+steps:
+  - label: "Probe"
+  - command: |
+      printenv
+      echo $(getconf _NPROCESSORS_ONLN 2>/dev/null)
+      lscpu || true
+      lsmem || true
+      docker info || true
