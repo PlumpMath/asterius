@@ -44,35 +44,7 @@ USER asterius
 WORKDIR /home/asterius
 
 RUN \
-  echo "eval \"\$(direnv hook bash)\"" >> ~/.bashrc && \
-  mkdir -p ~/.local/bin && \
-  curl -L https://github.com/commercialhaskell/stack/releases/download/v2.1.3/stack-2.1.3-linux-x86_64.tar.gz | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack' && \
-  curl -L https://downloads.haskell.org/~cabal/cabal-install-3.0.0.0/cabal-install-3.0.0.0-x86_64-unknown-linux.tar.xz | tar xJ -C ~/.local/bin 'cabal' && \
-  stack update && \
-  cabal v1-update && \
-  pip3 install \
-    recommonmark \
-    sphinx && \
-  npm config set prefix ~/.local && \
-  mkdir /tmp/asterius
-
-COPY --chown=asterius:asterius asterius /tmp/asterius/asterius
-COPY --chown=asterius:asterius ghc-toolkit /tmp/asterius/ghc-toolkit
-COPY --chown=asterius:asterius npm-utils /tmp/asterius/npm-utils
-COPY --chown=asterius:asterius wasm-toolkit /tmp/asterius/wasm-toolkit
-COPY --chown=asterius:asterius stack.yaml /tmp/asterius/stack.yaml
-
-RUN \
-  cd /tmp/asterius && \
-  stack install \
-    brittany \
-    ghcid \
-    hlint \
-    ormolu \
-    wai-app-static && \
-  cd /home/asterius && \
   sudo rm -rf \
-    /home/asterius/.stack/programs/*/*.tar.xz \
     /tmp/* \
     /var/lib/apt/lists/* \
     /var/tmp/*
