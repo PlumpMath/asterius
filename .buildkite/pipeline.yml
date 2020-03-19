@@ -1,5 +1,19 @@
 steps:
-  - label: "Build it and test it"
+
+  - label: "Build it"
+    command: |
+      docker build \
+        --compress \
+        --file dev.Dockerfile \
+        --force-rm \
+        --network host \
+        --no-cache \
+        --pull \
+        --squash \
+        --tag asterius:dev \
+        .
+
+  - label: "Test it"
     command: |
       docker pull debian:sid
       docker run \
